@@ -1,9 +1,11 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
+import google from '../../assets/images/google.png';
+import { toast } from 'react-hot-toast';
 
 const Login = () => {
-    const { logIn } = useContext(AuthContext);
+    const { logIn, googleLogin, user } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -14,13 +16,40 @@ const Login = () => {
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
-        logIn(email, password)
-            .then(result => {
-                form.reset();
-                navigate(from, { replace: true });
-            })
-            .catch(error => console.error(error));
 
+        if (user) {
+            toast("Your are already logged in", { icon: '⚠️' });
+        }
+
+        else if (email.length === 0 || password.length === 0) {
+            toast.error("Enter Your Email and Password");
+        }
+        else {
+            form.reset();
+            logIn(email, password)
+                .then(result => {
+
+                    navigate(from, { replace: true });
+                })
+                .catch(error => console.error(error));
+        }
+
+
+    }
+
+    const handleGoogleLogin = () => {
+        // setError('');
+        if (user) {
+            toast("Your are already logged in", { icon: '⚠️' });
+        }
+        else {
+            googleLogin()
+                .then(result => {
+                    toast.success("Login Successfully");
+                    navigate(from, { replace: true });
+                })
+                .catch(error => console.error(error.message));
+        }
     }
 
     return (
@@ -49,6 +78,10 @@ const Login = () => {
                         </div>
                         <div className="form-control mt-6">
                             <input value="Login" type='submit' className="btn btn-primary" />
+                        </div>
+                        <div className="divider">Or</div>
+                        <div className='flex justify-center mb-8'>
+                            <button onClick={handleGoogleLogin} className='btn w-full flex items-center gap-3 bg-gradient-to-r from-blue-50 font-bold to-blue-200 mt-5 text-primary hover:text-opacity-50'><img src={google} alt="" /> Join With Google</button>
                         </div>
                     </div>
                 </form>

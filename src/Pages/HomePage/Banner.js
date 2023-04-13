@@ -8,7 +8,7 @@ const Banner = () => {
                 <div className="hero-overlay bg-opacity-60"></div>
                 <div className="hero-content text-center text-neutral-content">
                     <div className="max-w-md">
-                        <h1 className="mb-5 text-5xl font-bold text-white">Welcome to the NL Entrepreneurship</h1>
+                        <h1 className="mb-5 md:text-5xl text-4xl font-bold text-white">Welcome to the NL Entrepreneurship</h1>
                         <p className="mb-5 text-white">Our mission is to empower students with the knowledge, skills, and resources needed to succeed as entrepreneurs.</p>
                         <Link to={`/login`} className="btn btn-primary">Get Started</Link>
                     </div>
