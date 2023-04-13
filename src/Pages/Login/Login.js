@@ -1,15 +1,25 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 import google from '../../assets/images/google.png';
 import { toast } from 'react-hot-toast';
+import { addDoc, collection, getDoc, getDocs, getFirestore } from 'firebase/firestore';
+import app from '../../firebase/firebase.config';
+
+
 
 const Login = () => {
-    const { logIn, googleLogin, user } = useContext(AuthContext);
+    const db = getFirestore(app);
+    const { logIn, googleLogin, user, setUser, setLoading } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
+    const [admin, setAdmin] = useState(null);
 
     let from = location.state?.from?.pathname || '/';
+
+    useEffect(()=>{
+        fetchItems();
+    },[]);
 
     const handleLogin = event => {
         event.preventDefault();
@@ -24,18 +34,37 @@ const Login = () => {
         else if (email.length === 0 || password.length === 0) {
             toast.error("Enter Your Email and Password");
         }
+
+        else if (admin?.id) {
+            if (admin?.user === email && admin.password === password) {
+                logIn(admin?.user, admin?.password);
+                navigate('/admin-dashboard');
+            }
+        }
+
         else {
             form.reset();
             logIn(email, password)
                 .then(result => {
 
-                    navigate(from, { replace: true });
+                    navigate('/dashboard');
                 })
                 .catch(error => console.error(error));
         }
 
 
     }
+
+    const fetchItems = async () => {
+        const querySnapshot = await getDocs(collection(db, 'users'));
+        let items = {};
+        querySnapshot.forEach((doc) => {
+            items = { id: doc.id, ...doc.data() };
+        });
+
+        setAdmin(items)
+    };
+
 
     const handleGoogleLogin = () => {
         // setError('');
@@ -46,7 +75,7 @@ const Login = () => {
             googleLogin()
                 .then(result => {
                     toast.success("Login Successfully");
-                    navigate(from, { replace: true });
+                    navigate('/dashboard');
                 })
                 .catch(error => console.error(error.message));
         }

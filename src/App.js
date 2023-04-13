@@ -7,36 +7,61 @@ import Login from "./Pages/Login/Login";
 import Register from "./Pages/Login/Register";
 import PrivateRoute from "./PrivateRoute/PrivateRoute";
 import HomePage from "./Pages/HomePage/HomePage";
+import Dashboard from "./layout/Dashboard";
+import Profile from "./Pages/Dashboard/Profile";
+import AdminDashboard from "./layout/AdminDashboard";
 
 function App() {
   const router = createBrowserRouter([
-      {
-        path:'/',
-        element:<Main></Main>,
-        children:[
-          {
-            path:'/',
-            element:<HomePage/>
-          },
-          {
-            path:'/call',
-            element:<PrivateRoute><Call/></PrivateRoute>
-          },
-          {
-            path:'/login',
-            element:<Login/>
-          },
-          {
-            path:'/register',
-            element:<Register/>
-          }
-        ]
-      }
+    {
+      path: '/',
+      element: <Main></Main>,
+      children: [
+        {
+          path: '/',
+          element: <HomePage />
+        },
+        {
+          path: '/call',
+          element: <PrivateRoute><Call /></PrivateRoute>
+        },
+        {
+          path: '/login',
+          element: <Login />
+        },
+        {
+          path: '/register',
+          element: <Register />
+        }
+      ]
+    },
+    {
+      path: '/dashboard',
+      element: <Dashboard></Dashboard>,
+      children: [
+        {
+          path: '/dashboard',
+          element: <PrivateRoute><Profile/></PrivateRoute>
+        },
+        
+      ]
+    },
+    {
+      path: '/admin-dashboard',
+      element: <AdminDashboard/>,
+      children: [
+        {
+          path: '/admin-dashboard',
+          element: <PrivateRoute><Profile/></PrivateRoute>
+        },
+        
+      ]
+    },
   ]);
   return (
-    <div className='max-w-screen-xl mx-auto' style={{minHeight:"100vh"}}>
-        <RouterProvider router={router}></RouterProvider>
-        <Toaster/>
+    <div className='max-w-screen-xl mx-auto' style={{ minHeight: "100vh" }}>
+      <RouterProvider router={router}></RouterProvider>
+      <Toaster />
     </div>
   );
 }
