@@ -17,9 +17,9 @@ const Login = () => {
 
     let from = location.state?.from?.pathname || '/';
 
-    useEffect(()=>{
+    useEffect(() => {
         fetchItems();
-    },[]);
+    }, []);
 
     const handleLogin = event => {
         event.preventDefault();
@@ -35,18 +35,16 @@ const Login = () => {
             toast.error("Enter Your Email and Password");
         }
 
-        else if (admin?.id) {
-            if (admin?.user === email && admin.password === password) {
-                logIn(admin?.user, admin?.password);
-                navigate('/admin-dashboard');
-            }
+
+        else if (admin?.user === email && admin.password === password) {
+            logIn(admin?.user, admin?.password);
+            navigate('/admin-dashboard');
         }
 
         else {
             form.reset();
             logIn(email, password)
                 .then(result => {
-
                     navigate('/dashboard');
                 })
                 .catch(error => console.error(error));

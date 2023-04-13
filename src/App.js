@@ -10,6 +10,8 @@ import HomePage from "./Pages/HomePage/HomePage";
 import Dashboard from "./layout/Dashboard";
 import Profile from "./Pages/Dashboard/Profile";
 import AdminDashboard from "./layout/AdminDashboard";
+import AddScore from "./Pages/Dashboard/AddScore";
+import ScorePanel from "./Pages/Dashboard/ScorePanel";
 
 function App() {
   const router = createBrowserRouter([
@@ -43,6 +45,11 @@ function App() {
           path: '/dashboard',
           element: <PrivateRoute><Profile/></PrivateRoute>
         },
+        {
+          path: '/dashboard/score-panel',
+          element: <PrivateRoute><ScorePanel/></PrivateRoute>
+        },
+       
         
       ]
     },
@@ -53,6 +60,10 @@ function App() {
         {
           path: '/admin-dashboard',
           element: <PrivateRoute><Profile/></PrivateRoute>
+        },
+        {
+          path: '/admin-dashboard/add-score',
+          element: <PrivateRoute><AddScore/></PrivateRoute>
         },
         
       ]

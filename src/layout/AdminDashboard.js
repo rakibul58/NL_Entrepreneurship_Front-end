@@ -19,7 +19,7 @@ const AdminDashboard = () => {
                         {/* <li><Link className='bg-base-300 bg-opacity-60 hover:bg-opacity-20' to='/dashboard'>My Profile</Link></li> */}
 
                         <li><Link className='bg-base-300 bg-opacity-60 hover:bg-opacity-20' to='/admin-dashboard'>Profile</Link></li>
-                        <li><Link className='bg-base-300 bg-opacity-60 hover:bg-opacity-20' to='/admin-dashboard'>Add Score</Link></li>
+                        <li><Link className='bg-base-300 bg-opacity-60 hover:bg-opacity-20' to='/admin-dashboard/add-score'>Add Score</Link></li>
 
 
                     </ul>

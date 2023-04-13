@@ -21,7 +21,7 @@ const Dashboard = () => {
                         {/* <li><Link className='bg-base-300 bg-opacity-60 hover:bg-opacity-20' to='/dashboard'>My Profile</Link></li> */}
 
                         <li><Link className='bg-base-300 bg-opacity-60 hover:bg-opacity-20' to='/dashboard'>Profile</Link></li>
-                        <li><Link className='bg-base-300 bg-opacity-60 hover:bg-opacity-20' to='/dashboard'>Score Panel</Link></li>
+                        <li><Link className='bg-base-300 bg-opacity-60 hover:bg-opacity-20' to='/dashboard/score-panel'>Score Panel</Link></li>
 
 
                     </ul>
